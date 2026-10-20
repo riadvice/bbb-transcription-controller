@@ -1,6 +1,10 @@
 'use strict'
 
 const Logger = require('./lib/logger');
+const ErrorTracking = require('./lib/error-tracking');
+ErrorTracking.init('bbb-transcription-controller', {
+  logger: Logger, hasFatal: false, config: require('config').sentry,
+});
 
 const config = require('config');
 const { fork } = require('child_process');
@@ -379,7 +383,7 @@ const exitCleanup = () => {
     Logger.info('Killing gladia proxy');
     GLADIA_PROXY_PROCESS.kill('SIGINT');
   }
-  setTimeout(() => process.exit(), 1000);
+  setTimeout(() => ErrorTracking.flush().then(() => process.exit()), 1000);
 }
 
 process.on('SIGINT', exitCleanup);

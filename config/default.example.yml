@@ -84,3 +84,12 @@ freeswitch:
   ip: 0.0.0.0
   port: 8021
   password:
+
+# Sentry error reporting, off while dsn is empty; BBB_SENTRY_* variables win.
+sentry:
+  dsn: ""
+  level: error
+  breadcrumbLevel: info
+  anonymise: mask
+  environment: production
+  sampleRate: 1.0
