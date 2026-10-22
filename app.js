@@ -1,5 +1,6 @@
 'use strict'
 
+require('./lib/telemetry');
 const Logger = require('./lib/logger');
 
 const config = require('config');
